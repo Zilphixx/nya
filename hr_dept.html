@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Department</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
+</head>
+
+<body>
+    <div class="row justify-content-center align-items-center w-100 min-h-100">
+
+        <div class="col-8 col-md-4 my-5">
+
+            <div class="card border-dark-subtle shadow-lg">
+
+                <div class="card-header mb-0 text-center p-3">
+
+                    <h3 class="card-title text-muted mb-0">
+                        HR Department
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-3">
+
+                    <form id="hr-dept-form" class="row justify-content-center">
+
+                        <div class="col-10 mb-3">
+                            <label for="position" class="form-label fw-semibold mb-0">Position</label>
+                            <select required name="position" id="position" class="form-select">
+                                <option value="" disabled selected hidden>Select Position...</option>
+                                <option value="HR">HR</option>
+                                <option value="ADMIN OFFICER">ADMIN OFFICER</option>
+                            </select>
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="first_name" class="form-label fw-semibold mb-0">First Name</label>
+                            <input required type="text" class="form-control" name="first_name" id="first_name" placeholder="Enter First Name">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="middle_name" class="form-label fw-semibold mb-0">Middle Name</label>
+                            <input required type="text" class="form-control" name="middle_name" id="middle_name" placeholder="Enter Middle Name">
+                        </div>
+                        <div class="col-10 mb-3">
+                            <label for="last_name" class="form-label fw-semibold mb-0">Last Name</label>
+                            <input required type="text" class="form-control" name="last_name" id="last_name" placeholder="Enter Last Name">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="complete_address" class="form-label fw-semibold mb-0">Complete Home Address</label>
+                            <input required type="text" class="form-control" name="complete_address" id="complete_address" placeholder="Enter Complete Home Address">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="educational_attainment" class="form-label fw-semibold mb-0">Educational Attainment</label>
+                            <select required name="educational_attainment" id="educational_attainment" class="form-select">
+                                <option value="" disabled selected hidden>Select Educational Attainment...</option>
+                                <option value="High School Diploma">High School Diploma</option>
+                                <option value="Associate Degree">Associate Degree</option>
+                                <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                <option value="Master's Degree">Master's Degree</option>
+                            </select>
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="email_address" class="form-label fw-semibold mb-0">Email Address</label>
+                            <input required type="email" class="form-control" name="email_address" id="email_address" placeholder="Enter Email Address">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="employment_status" class="form-label fw-semibold">Employment Status</label>
+                            <select required required name="employment_status" id="employment_status"
+                                class="form-select">
+                                <option value="" disabled selected hidden>Select Employment Status...</option>
+                                <option value="Employed">Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Not in the Labor Force">Not in the Labor Force</option>
+                                <option value="Underemployed">Underemployed</option>
+                            </select>
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="sss_number" class="form-label fw-semibold mb-0">SSS No.</label>
+                            <input required type="text" class="form-control" name="sss_number" id="sss_number" placeholder="Enter SSS Number" oninput="validateNumber(this)">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="pagibig_number" class="form-label fw-semibold mb-0">Pag-Ibig No.</label>
+                            <input required type="text" class="form-control" name="pagibig_number" id="pagibig_number" placeholder="Enter Pag-Ibig Number" oninput="validateNumber(this)">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="philhealth_number" class="form-label fw-semibold mb-0">PhilHealth No.</label>
+                            <input required type="text" class="form-control" name="philhealth_number" id="philhealth_number" placeholder="Enter PhilHealth Number" oninput="validateNumber(this)">
+                        </div>
+
+                        <div class="col-10 mb-3">
+                            <label for="resume" class="form-label fw-semibold mb-0">Resume</label>
+                            <input required type="file" class="form-control" name="resume" id="resume" accept="application/pdf, .pdf">
+                        </div>
+
+                        <div class="col-10 my-3">
+                            <button type="submit" class="btn btn-primary w-100">
+                                Submit Application
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="bootstrap.min.js"></script>
+    <script src="sweetalert2.min.js"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzDN8Av_RDiuEaskDC8S4zeWtp_SGBf68D_BwUeXB-I52Ry2L8BzohAgLthyeIx6ycqcQ/exec';
+            const form = document.getElementById('hr-dept-form');
+            const fileInput = document.getElementById('resume');
+            const formData = new FormData();
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                formData.append('department', 'HR Department');
+                formData.append('position', document.getElementById('position').value);
+                formData.append('first_name', document.getElementById('first_name').value);
+                formData.append('middle_name', document.getElementById('middle_name').value);
+                formData.append('last_name', document.getElementById('last_name').value);
+                formData.append('complete_address', document.getElementById('complete_address').value);
+                formData.append('educational_attainment', document.getElementById('educational_attainment').value);
+                formData.append('email_address', document.getElementById('email_address').value);
+                formData.append('employment_status', document.getElementById('employment_status').value);
+                formData.append('sss_number', document.getElementById('sss_number').value);
+                formData.append('pagibig_number', document.getElementById('pagibig_number').value);
+                formData.append('philhealth_number', document.getElementById('philhealth_number').value);
+
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+
+                    // Size validation here, only less than 2MB allowed
+                    if (file.size > 1024 * 1024 * 2) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'File size should be less than 2MB.',
+                            icon: 'error'
+                        });
+
+                        return;
+                    }
+
+                    reader.onload = async function () {
+                        formData.append("resume", reader.result.split(",")[1]); // Append base64 data
+                        await submitForm(formData);
+                    };
+
+                    reader.readAsDataURL(file);
+                } else {
+                    // No file uploaded
+                    await submitForm(formData);
+                }
+            });
+
+            async function submitForm(data) {
+                // Get the submit button and change its text to "Loading..."
+                const submitButton = document.querySelector("button[type='submit']");
+                submitButton.disabled = true;
+
+                Swal.fire({
+                    title: 'Submitting Application. Please wait...',
+                    customClass: {
+                        title: 'fs-4'
+                    }
+                });
+                Swal.showLoading();
+
+                // Submit the form data to the Google Sheet
+                fetch(scriptURL, { method: "POST", body: data })
+                    .then((response) => {
+                        Swal.fire({
+                            title: 'Success!',
+                            icon: 'success',
+                            text: 'Application Submitted Succesfully!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        });
+                        form.reset();
+                    })
+                    .catch((error) => {
+                        Swal.fire({
+                            title: 'Oops!',
+                            icon: 'error',
+                            text: 'Something went wrong. Please try again!'
+                        });
+                    })
+                    .finally(() => {
+                        // Reset the submit button back to "Submit"
+                        submitButton.disabled = false;
+                    });
+            }
+        });
+
+        function validateNumber(input) {
+            let inputValue = input.value;
+            inputValue = inputValue.replace(/[^0-9]/g, '');
+            input.value = inputValue;
+        }
+    </script>
+</body>
+
+</html>
